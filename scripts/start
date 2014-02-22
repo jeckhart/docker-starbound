@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Copy default config in place
+[ -f /data/starbound.config ] || cp /etc/starbound/starbound.config /data
+
+# Setup StarryPy
+[ -f /data/config.json ] || cp /opt/StarryPy/config/config.json.default /data/config.json
+ln -nsf /data/config.json /opt/StarryPy/config
+
+# Why doesn't StarryPy start the server??
+/opt/starbound/linux64/starbound_server -bootconfig /etc/starbound/bootstrap.config &
+sleep 2
+
+# Run StarryPy
+cd /opt/StarryPy
+python server.py
